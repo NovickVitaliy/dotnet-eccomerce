@@ -32,6 +32,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.DataAccess"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "src\services\OrderManagement\OrderManagement.Domain\OrderManagement.Domain.csproj", "{852BC117-F3B3-429C-9DA8-72A8E142350D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasketService", "BasketService", "{9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Grpc", "src\services\BasketService\BasketService.Grpc\BasketService.Grpc.csproj", "{B511EB38-77A5-437B-90FF-06F726596899}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Domain", "src\services\BasketService\BasketService.Domain\BasketService.Domain.csproj", "{9252F94C-28D4-4B54-B052-17B57B70B5EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Application", "src\services\BasketService\BasketService.Application\BasketService.Application.csproj", "{5E5470B7-D77E-4070-8145-AD036322D892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Infrastructure", "src\services\BasketService\BasketService.Infrastructure\BasketService.Infrastructure.csproj", "{997418F8-8379-429D-AEB7-4A26CC65B410}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +62,11 @@ Global
 		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
 		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
 		{852BC117-F3B3-429C-9DA8-72A8E142350D} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
+		{9EE7DC79-6A7B-4C71-B94F-1CB272953BDE} = {F4524B79-6009-4F37-94E7-0308FEE020EB}
+		{B511EB38-77A5-437B-90FF-06F726596899} = {9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}
+		{9252F94C-28D4-4B54-B052-17B57B70B5EB} = {9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}
+		{5E5470B7-D77E-4070-8145-AD036322D892} = {9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}
+		{997418F8-8379-429D-AEB7-4A26CC65B410} = {9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -86,5 +101,21 @@ Global
 		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B511EB38-77A5-437B-90FF-06F726596899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B511EB38-77A5-437B-90FF-06F726596899}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B511EB38-77A5-437B-90FF-06F726596899}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B511EB38-77A5-437B-90FF-06F726596899}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9252F94C-28D4-4B54-B052-17B57B70B5EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9252F94C-28D4-4B54-B052-17B57B70B5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9252F94C-28D4-4B54-B052-17B57B70B5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9252F94C-28D4-4B54-B052-17B57B70B5EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E5470B7-D77E-4070-8145-AD036322D892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E5470B7-D77E-4070-8145-AD036322D892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E5470B7-D77E-4070-8145-AD036322D892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E5470B7-D77E-4070-8145-AD036322D892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{997418F8-8379-429D-AEB7-4A26CC65B410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{997418F8-8379-429D-AEB7-4A26CC65B410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{997418F8-8379-429D-AEB7-4A26CC65B410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{997418F8-8379-429D-AEB7-4A26CC65B410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

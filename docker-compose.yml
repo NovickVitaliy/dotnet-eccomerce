@@ -11,7 +11,6 @@
     volumes:
       - product.inventory.db.volume:/var/opt/mssql
   
-  
   order.management.db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: order.management.db
@@ -23,8 +22,29 @@
       - "1434:1433"
     volumes:
       - order.management.db.volume:/var/opt/mssql
-
+  
+  basket.service.db:
+    image: mongo
+    container_name: basket.service.db
+    restart: always
+    environment:
+      - TZ=Europe/Kyiv
+    ports:
+      - "27017:27017"
+    volumes:
+      - basket.service.db.volume:/data/db
+        
+  mongo-ui:
+    image: mongo-express
+    container_name: mongo-ui
+    restart: always
+    ports:
+      - "8082:8081"
+    environment:
+      - ME_CONFIG_MONGODB_URL=mongodb://basket.service.db:27017/
+      - ME_CONFIG_BASICAUTH=false
 
 volumes:
   product.inventory.db.volume:
   order.management.db.volume:
+  basket.service.db.volume:
