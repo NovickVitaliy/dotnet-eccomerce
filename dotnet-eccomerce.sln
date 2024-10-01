@@ -3,6 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AE847E30-32D8-4962-9012-64FC93A1C645}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{F4524B79-6009-4F37-94E7-0308FEE020EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductInventory", "ProductInventory", "{80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventory.API", "src\services\ProductInventory\ProductInventory.API\ProductInventory.API.csproj", "{D9E4B02D-A151-4E58-A555-2F3727011D44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventory.Business", "src\services\ProductInventory\ProductInventory.Business\ProductInventory.Business.csproj", "{9ACCA400-909A-4096-9F02-E47E4EC2CDFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventory.DataAccess", "src\services\ProductInventory\ProductInventory.DataAccess\ProductInventory.DataAccess.csproj", "{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductInventory.Domain", "src\services\ProductInventory\ProductInventory.Domain\ProductInventory.Domain.csproj", "{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E3E742FA-DB69-4F4F-830F-986B8253B793}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +29,31 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4524B79-6009-4F37-94E7-0308FEE020EB} = {AE847E30-32D8-4962-9012-64FC93A1C645}
+		{80B8944B-CC58-42B3-AC46-4FC5F3FBA12A} = {F4524B79-6009-4F37-94E7-0308FEE020EB}
+		{D9E4B02D-A151-4E58-A555-2F3727011D44} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
+		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
+		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
+		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

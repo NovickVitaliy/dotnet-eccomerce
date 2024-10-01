@@ -1,0 +1,54 @@
+CREATE TABLE Category
+(
+    Id          INT PRIMARY KEY IDENTITY (1,1),
+    Name        VARCHAR(50) NOT NULL,
+    Description VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Supplier
+(
+    Id          INT PRIMARY KEY IDENTITY (1,1),
+    Name        VARCHAR(255) NOT NULL,
+    ContactInfo VARCHAR(255) NOT NULL,
+    Address     VARCHAR(50)  NOT NULL
+);
+
+CREATE TABLE Product
+(
+    Id            INT PRIMARY KEY IDENTITY (1,1),
+    Name          VARCHAR(255)   NOT NULL,
+    Description   VARCHAR(MAX)   NOT NULL,
+    Price         DECIMAL(18, 2) NOT NULL,
+    StockQuantity INT            NOT NULL,
+    CategoryId    INT            NOT NULL,
+    SupplierId    INT            NOT NULL,
+    FOREIGN KEY (CategoryId) REFERENCES Category (Id) ON DELETE CASCADE,
+    FOREIGN KEY (SupplierId) REFERENCES Supplier (Id) ON DELETE CASCADE
+);
+
+CREATE TABLE ProductDetail
+(
+    productId      INT PRIMARY KEY IDENTITY (1,1),
+    weight         INT         NOT NULL,
+    height         INT         NOT NULL,
+    width          INT         NOT NULL,
+    length         INT         NOT NULL,
+    color          VARCHAR(50) NOT NULL,
+    warrantyPeriod TIME        NOT NULL,
+    FOREIGN KEY (productId) REFERENCES Product (Id)
+);
+
+CREATE TABLE ProductTag
+(
+    id   INT PRIMARY KEY IDENTITY (1,1),
+    name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE ProductTagMapping
+(
+    productId    INT,
+    productTagId INT,
+    PRIMARY KEY (productId, productTagId),
+    FOREIGN KEY (productId) REFERENCES Product (Id),
+    FOREIGN KEY (productTagId) REFERENCES ProductTag (id)
+);
