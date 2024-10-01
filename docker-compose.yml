@@ -10,7 +10,21 @@
       - "1433:1433"
     volumes:
       - product.inventory.db.volume:/var/opt/mssql
+  
+  
+  order.management.db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: order.management.db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Passw0rd
+      - MSSQL_PID=Developer
+    ports:
+      - "1434:1433"
+    volumes:
+      - order.management.db.volume:/var/opt/mssql
 
 
 volumes:
   product.inventory.db.volume:
+  order.management.db.volume:

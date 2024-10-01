@@ -22,6 +22,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OrderManagement", "OrderManagement", "{B5A59133-CA80-479A-94CB-38D2A3381A32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.API", "src\services\OrderManagement\OrderManagement.API\OrderManagement.API.csproj", "{A0B93751-43FC-4834-83EB-B00065A5973E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Business", "src\services\OrderManagement\OrderManagement.Business\OrderManagement.Business.csproj", "{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.DataAccess", "src\services\OrderManagement\OrderManagement.DataAccess\OrderManagement.DataAccess.csproj", "{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "src\services\OrderManagement\OrderManagement.Domain\OrderManagement.Domain.csproj", "{852BC117-F3B3-429C-9DA8-72A8E142350D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +47,11 @@ Global
 		{9ACCA400-909A-4096-9F02-E47E4EC2CDFD} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
 		{7AA7A54A-25C0-4F8A-91E4-BD8F7910D164} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
 		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439} = {80B8944B-CC58-42B3-AC46-4FC5F3FBA12A}
+		{B5A59133-CA80-479A-94CB-38D2A3381A32} = {F4524B79-6009-4F37-94E7-0308FEE020EB}
+		{A0B93751-43FC-4834-83EB-B00065A5973E} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
+		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
+		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
+		{852BC117-F3B3-429C-9DA8-72A8E142350D} = {B5A59133-CA80-479A-94CB-38D2A3381A32}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -55,5 +70,21 @@ Global
 		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ED8EC7D-816C-41BB-87DC-5960AA2B2439}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0B93751-43FC-4834-83EB-B00065A5973E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0B93751-43FC-4834-83EB-B00065A5973E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0B93751-43FC-4834-83EB-B00065A5973E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0B93751-43FC-4834-83EB-B00065A5973E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D4C5D6-D05E-46B5-9E15-241EEFE806F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C56C6A84-AD0B-43DD-A6E5-BDB00EE3A467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{852BC117-F3B3-429C-9DA8-72A8E142350D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
