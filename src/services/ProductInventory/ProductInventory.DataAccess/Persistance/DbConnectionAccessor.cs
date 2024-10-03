@@ -1,4 +1,5 @@
 using System.Data;
+using System.Data.Common;
 using Microsoft.Data.SqlClient;
 
 namespace ProductInventory.DataAccess.Persistance;
@@ -13,7 +14,7 @@ public class DbConnectionAccessor
         _connectionString = connectionString;
     }
 
-    public IDbConnection GetConnection()
+    public DbConnection GetConnection()
     {
         return new SqlConnection(_connectionString);
     }

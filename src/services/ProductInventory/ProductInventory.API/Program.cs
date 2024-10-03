@@ -1,6 +1,9 @@
+using ProductInventory.DataAccess;
 using ProductInventory.DataAccess.Persistance.Initialization;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.ConfigureDataAccess(builder.Configuration);
+builder.Services.AddControllers();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -8,4 +11,6 @@ if (app.Environment.IsDevelopment())
     await app.MigrateDatabase();
 }
 
+
+app.MapControllers();
 app.Run();

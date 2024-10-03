@@ -22,8 +22,8 @@ CREATE TABLE Product
     StockQuantity INT            NOT NULL,
     CategoryId    INT            NOT NULL,
     SupplierId    INT            NOT NULL,
-    FOREIGN KEY (CategoryId) REFERENCES Category (Id) ON DELETE CASCADE,
-    FOREIGN KEY (SupplierId) REFERENCES Supplier (Id) ON DELETE CASCADE
+    FOREIGN KEY (CategoryId) REFERENCES Category (CategoryId) ON DELETE CASCADE,
+    FOREIGN KEY (SupplierId) REFERENCES Supplier (SupplierId) ON DELETE CASCADE
 );
 
 CREATE TABLE ProductDetail
@@ -35,7 +35,7 @@ CREATE TABLE ProductDetail
     length         INT         NOT NULL,
     color          VARCHAR(50) NOT NULL,
     warrantyPeriod TIME        NOT NULL,
-    FOREIGN KEY (productId) REFERENCES Product (Id)
+    FOREIGN KEY (ProductDetailId) REFERENCES Product (ProductId)
 );
 
 CREATE TABLE ProductTag
@@ -49,6 +49,6 @@ CREATE TABLE ProductTagMapping
     productId    INT,
     productTagId INT,
     PRIMARY KEY (productId, productTagId),
-    FOREIGN KEY (productId) REFERENCES Product (Id),
-    FOREIGN KEY (productTagId) REFERENCES ProductTag (id)
+    FOREIGN KEY (productId) REFERENCES Product (ProductId),
+    FOREIGN KEY (productTagId) REFERENCES ProductTag (ProductTagId)
 );

@@ -10,7 +10,7 @@ BEGIN
 
     SELECT *
     FROM Product
-    ORDER BY id
+    ORDER BY ProductId
     OFFSET @skipItems ROWS FETCH NEXT @pageSize ROWS ONLY;
 END
 GO;

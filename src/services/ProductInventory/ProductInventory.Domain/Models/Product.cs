@@ -12,5 +12,5 @@ public class Product
     public int SupplierId { get; set; }
     public Supplier? Supplier { get; set; }
     public ProductDetail? ProductDetail { get; set; }
-    public List<ProductTagMapping>? ProductTagMappings { get; set; }
+    public List<ProductTag> ProductTags { get; set; }
 }
