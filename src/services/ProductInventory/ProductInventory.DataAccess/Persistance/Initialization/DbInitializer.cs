@@ -2,7 +2,7 @@ using DbUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 
-namespace ProductInventory.DataAccess.Initialization;
+namespace ProductInventory.DataAccess.Persistance.Initialization;
 
 public static class DbInitializer
 {

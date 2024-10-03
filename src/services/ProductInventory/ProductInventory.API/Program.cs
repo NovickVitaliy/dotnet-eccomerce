@@ -1,4 +1,4 @@
-using ProductInventory.DataAccess.Initialization;
+using ProductInventory.DataAccess.Persistance.Initialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
