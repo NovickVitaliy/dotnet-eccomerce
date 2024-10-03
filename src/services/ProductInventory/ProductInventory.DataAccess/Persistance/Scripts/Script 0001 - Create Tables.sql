@@ -1,13 +1,13 @@
 CREATE TABLE Category
 (
-    Id          INT PRIMARY KEY IDENTITY (1,1),
+    CategoryId          INT PRIMARY KEY IDENTITY (1,1),
     Name        VARCHAR(50) NOT NULL,
     Description VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE Supplier
 (
-    Id          INT PRIMARY KEY IDENTITY (1,1),
+    SupplierId          INT PRIMARY KEY IDENTITY (1,1),
     Name        VARCHAR(255) NOT NULL,
     ContactInfo VARCHAR(255) NOT NULL,
     Address     VARCHAR(50)  NOT NULL
@@ -15,7 +15,7 @@ CREATE TABLE Supplier
 
 CREATE TABLE Product
 (
-    Id            INT PRIMARY KEY IDENTITY (1,1),
+    ProductId            INT PRIMARY KEY IDENTITY (1,1),
     Name          VARCHAR(255)   NOT NULL,
     Description   VARCHAR(MAX)   NOT NULL,
     Price         DECIMAL(18, 2) NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE Product
 
 CREATE TABLE ProductDetail
 (
-    productId      INT PRIMARY KEY IDENTITY (1,1),
+    ProductDetailId      INT PRIMARY KEY IDENTITY (1,1),
     weight         INT         NOT NULL,
     height         INT         NOT NULL,
     width          INT         NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE ProductDetail
 
 CREATE TABLE ProductTag
 (
-    id   INT PRIMARY KEY IDENTITY (1,1),
+    ProductTagId   INT PRIMARY KEY IDENTITY (1,1),
     name VARCHAR(50) NOT NULL
 );
 

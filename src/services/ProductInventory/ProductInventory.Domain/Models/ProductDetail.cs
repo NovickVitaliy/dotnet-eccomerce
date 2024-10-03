@@ -2,7 +2,7 @@ namespace ProductInventory.Domain.Models;
 
 public class ProductDetail
 {
-    public int ProductId { get; init; }
+    public int ProductDetailId { get; init; }
     public int Weight { get; set; }
     public int Height { get; set; }
     public int Width { get; set; }
