@@ -27,6 +27,8 @@
         <EmbeddedResource Include="Persistance\Scripts\Script 0001 - Create Tables.sql"/>
         <None Remove="Persistance\Scripts\Script 0002 - Create procedures.sql"/>
         <EmbeddedResource Include="Persistance\Scripts\Script 0002 - Create procedures.sql"/>
+        <None Remove="Persistance\Scripts\Script 0003 - Seed Tables.sql" />
+        <EmbeddedResource Include="Persistance\Scripts\Script 0003 - Seed Tables.sql" />
     </ItemGroup>
 
 </Project>
