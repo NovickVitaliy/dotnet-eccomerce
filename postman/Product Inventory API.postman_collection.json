@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "7ad3cfbf-5c47-4870-b162-9bda93cbf89f",
+		"name": "Product Inventory API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28558318"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{product-inventory-url}}/api/categories",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Custom Category\",\r\n    \"description\": \"Description for 'Custom Category'\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/categories/",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Name\",\r\n    \"description\": \"Updated Description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/categories/1",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/products",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Name\": \"Sample Product With Updated Name\",\r\n  \"Description\": \"This is a sample product description.\",\r\n  \"Price\": 29.99,\r\n  \"StockQuantity\": 100,\r\n  \"CategoryId\": 1,\r\n  \"SupplierId\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/products/1002",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Detail",
+			"item": [
+				{
+					"name": "Get Product Details",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Detail By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product Detail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ProductDetailId\": 1003,\r\n    \"Weight\": 1500,\r\n    \"Height\": 20,\r\n    \"Width\": 15,\r\n    \"Length\": 30,\r\n    \"Color\": \"Red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-details",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Detail",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-details/1003",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-details",
+								"1003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product Detail",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-details/1003",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-details",
+								"1003"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Tag",
+			"item": [
+				{
+					"name": "Get Product Tags",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product Tag By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product Tag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Custom Product Tag\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-tags",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-tags"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Tag",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated 'Custom Product Tag'\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-tags/1002",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-tags",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product Tag",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{product-inventory-url}}/api/product-tags/1002",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"product-tags",
+								"1002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Supplier",
+			"item": [
+				{
+					"name": "Get Suppliers",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Supplier By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Create Supplier",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Update Supplier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"Name\": \"Updated Global Supplies Inc.\",\r\n  \"ContactInfo\": \"+1-123-456-7890, info@globalsupplies.com\",\r\n  \"Address\": \"123 Main Street, Springfield, IL, USA\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{product-inventory-url}}/api/suppliers/1006",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"suppliers",
+								"1006"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Supplier",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{product-inventory-url}}/api/suppliers/1006",
+							"host": [
+								"{{product-inventory-url}}"
+							],
+							"path": [
+								"api",
+								"suppliers",
+								"1006"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
