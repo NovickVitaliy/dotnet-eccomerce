@@ -14,6 +14,9 @@ public static class DependencyInjection
                                                                                ?? throw new ArgumentNullException(nameof(DbConnectionAccessor.ConnectionStringPosition))));
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IProductDetailsRepository, ProductDetailsRepository>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductTagRepository, ProductTagRepository>();
+        services.AddScoped<ISupplierRepository, SupplierRepository>();
         return services;
     }
 }

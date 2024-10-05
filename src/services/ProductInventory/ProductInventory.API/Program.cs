@@ -1,8 +1,10 @@
+using ProductInventory.Business;
 using ProductInventory.DataAccess;
 using ProductInventory.DataAccess.Persistance.Initialization;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.ConfigureDataAccess(builder.Configuration);
+builder.Services.ConfigureDataAccess(builder.Configuration)
+    .ConfigureBusinessLayer();
 builder.Services.AddControllers();
 var app = builder.Build();
 
