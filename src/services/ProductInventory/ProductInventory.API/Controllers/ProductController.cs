@@ -24,7 +24,7 @@ public class ProductController : BaseApiController
             return BadRequest();
         }
 
-        return Created("/api/products/{id}", new {id = response.Data});
+        return Created($"/api/products/{response.Data}", new {id = response.Data});
     }
 
     [HttpGet]
@@ -51,7 +51,7 @@ public class ProductController : BaseApiController
         return Ok(response.Data);
     }
 
-    [HttpPost("{id:int}")]
+    [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, UpdateProductRequest request)
     {
         request = request with { ProductId = id };

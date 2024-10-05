@@ -65,7 +65,7 @@ public class ProductDetailsRepository : IProductDetailsRepository
             "UPDATE ProductDetail SET " +
             "color = @color, height = @height, length = @length, " +
             " warrantyPeriod = @warrantyPeriod, weight = @weight, width = @width" +
-            " WHERE ProductDetailId = @productDetaildId",
+            " WHERE ProductDetailId = @productDetailId",
             new
             {
                 color = productDetail.Color,

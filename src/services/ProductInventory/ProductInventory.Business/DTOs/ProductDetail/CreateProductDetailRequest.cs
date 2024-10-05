@@ -7,4 +7,4 @@ public record CreateProductDetailRequest(
     int Width,
     int Length,
     string Color,
-    TimeSpan WarrantyPeriod);
+    TimeSpan? WarrantyPeriod);

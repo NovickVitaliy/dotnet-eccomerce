@@ -1,5 +1,6 @@
 using System.Data.Common;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using ProductInventory.DataAccess.Persistance;
 using ProductInventory.DataAccess.Repositories.Contracts;
 using ProductInventory.Domain.Models;
@@ -9,12 +10,12 @@ namespace ProductInventory.DataAccess.Repositories.Implementations;
 public class ProductRepository : IProductRepository
 {
     private readonly DbConnectionAccessor _dbConnectionAccessor;
-    
+
     public ProductRepository(DbConnectionAccessor dbConnectionAccessor)
     {
         _dbConnectionAccessor = dbConnectionAccessor;
     }
-    
+
     public async Task<int> CreateProductAsync(Product product)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
@@ -34,7 +35,7 @@ public class ProductRepository : IProductRepository
 
         return id;
     }
-    
+
     public async Task<Product?> GetProductByIdAsync(int productId)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
@@ -61,57 +62,106 @@ public class ProductRepository : IProductRepository
             });
         product.ProductTags = productTags.ToList();
     }
-    
+
     private async Task AppendProductDetailToProduct(Product product, DbConnection connection)
     {
         var productDetail = await connection.QuerySingleOrDefaultAsync<ProductDetail>(
             "SELECT * FROM ProductDetail WHERE ProductDetailId = @productDetailid",
-            new {productDetailId = product.ProductId});
+            new { productDetailId = product.ProductId });
         product.ProductDetail = productDetail;
     }
     private async Task AppendSupplierToProduct(Product product, DbConnection connection)
     {
         var supplier = await connection.QuerySingleOrDefaultAsync<Supplier>(
             "SELECT * FROM Supplier WHERE SupplierId = @supplierId",
-            new {supplierId = product.SupplierId});
+            new { supplierId = product.SupplierId });
         product.Supplier = supplier;
     }
     private async Task AppendCategoryToProduct(Product product, DbConnection connection)
     {
         var category = await connection.QuerySingleOrDefaultAsync<Category>(
             "SELECT * FROM Category WHERE CategoryId = @categoryId",
-            new {categoryId = product.CategoryId});
+            new { categoryId = product.CategoryId });
         product.Category = category;
     }
     private async Task<Product?> ReadProductAsync(DbConnection connection, int productId)
     {
         return await connection.QuerySingleOrDefaultAsync<Product>(
             "SELECT * FROM Product WHERE ProductId = @productId",
-            new {productId});
+            new { productId });
     }
 
-    public Task<List<Product>> GetProductsAsync(int pageNumber, int pageSize)
+    public async Task<List<Product>> GetProductsAsync(int pageNumber, int pageSize)
     {
-        throw new NotImplementedException();
+        string sql = @"
+        SELECT 
+            p.ProductId, p.Name, p.Description, p.Price, p.StockQuantity, p.SupplierId, p.CategoryId, 
+            p.CategoryId, c.CategoryId, c.Name, c.Description,
+            p.SupplierId, s.SupplierId, s.Name, s.Address, s.ContactInfo, 
+            pd.ProductDetailId, pd.weight, pd.warrantyPeriod, pd.length, pd.height, pd.color, pd.width, 
+            pt.ProductTagId, pt.Name AS TagName
+        FROM Product p
+        INNER JOIN Category c ON p.CategoryId = c.CategoryId
+        INNER JOIN Supplier s ON p.SupplierId = s.SupplierId
+        LEFT JOIN ProductDetail pd ON p.ProductId = pd.ProductDetailId
+        LEFT JOIN ProductTagMapping ptm ON p.ProductId = ptm.ProductId
+        LEFT JOIN ProductTag pt ON ptm.ProductTagId = pt.ProductTagId
+        ORDER BY p.ProductId
+        OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
+
+        await using var connection = _dbConnectionAccessor.GetConnection();
+        var productDictionary = new Dictionary<int, Product>();
+
+        int offset = (pageNumber - 1) * pageSize; 
+
+        var result = await connection.QueryAsync<Product, Category, Supplier, ProductDetail, ProductTag, Product>(
+            sql,
+            (product, category, supplier, productDetail, productTag) =>
+            {
+                if (!productDictionary.TryGetValue(product.ProductId, out var productEntry))
+                {
+                    productEntry = product;
+                    productEntry.Category = category;
+                    productEntry.Supplier = supplier;
+                    productEntry.ProductDetail = productDetail;
+                    productEntry.ProductTags = new List<ProductTag>();
+                    productDictionary.Add(product.ProductId, productEntry);
+                }
+
+                if (productTag != null)
+                {
+                    productEntry.ProductTags.Add(productTag);
+                }
+
+                return productEntry;
+            },
+            new
+            {
+                offset, pageSize
+            },
+            splitOn: "CategoryId, SupplierId, ProductDetailId, ProductTagId"
+        );
+
+        return productDictionary.Values.ToList();
     }
-    
+
     public async Task<bool> DeleteProductAsync(int productId)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var rowsAffected = await connection.ExecuteAsync(
             "DELETE FROM Product WHERE ProductId = @productId",
-            new {productId});
+            new { productId });
 
         return rowsAffected == 1;
     }
-    
+
     public async Task<bool> UpdateProductAsync(Product product)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var rowsAffected = await connection.ExecuteAsync(
             "UPDATE Product " +
-            "SET Name = @name, Description = @description, Price = @price, " + 
-            "StockQuantity = @stockQuantity, CategoryId = @categoryId, SupplierId = @supplierId",
+            "SET Name = @name, Description = @description, Price = @price, " +
+            "StockQuantity = @stockQuantity, CategoryId = @categoryId, SupplierId = @supplierId WHERE ProductId = @productId",
             new
             {
                 name = product.Name,
@@ -119,7 +169,8 @@ public class ProductRepository : IProductRepository
                 price = product.Price,
                 stockQuantity = product.StockQuantity,
                 categoryId = product.CategoryId,
-                supplierId = product.SupplierId
+                supplierId = product.SupplierId,
+                productId = product.ProductId
             });
 
         return rowsAffected == 1;

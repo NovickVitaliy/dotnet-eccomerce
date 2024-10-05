@@ -9,7 +9,7 @@ public class ProductTagProfile : Profile
     public ProductTagProfile()
     {
         CreateMap<CreateProductTagRequest, ProductTag>();
-        CreateMap<Product, ProductTag>();
+        CreateMap<ProductTag, ProductTagDto>();
         CreateMap<UpdateProductTagRequest, ProductTag>();
     }
 }

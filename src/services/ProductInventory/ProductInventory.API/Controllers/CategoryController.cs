@@ -25,7 +25,7 @@ public class CategoryController : BaseApiController
         {
             return BadRequest();
         }
-        return Created("/api/categories/{id}", new
+        return Created($"/api/categories/{result.Data}", new
         {
             id = result.Data
         });
@@ -44,9 +44,9 @@ public class CategoryController : BaseApiController
     }
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetCategoryById([FromQuery] GetCategoryByIdRequest request)
+    public async Task<IActionResult> GetCategoryById(int id)
     {
-        var response = await _categoryService.GetCategoryByIdAsync(request);
+        var response = await _categoryService.GetCategoryByIdAsync(new GetCategoryByIdRequest(id));
         if (!response.Success)
         {
             return NotFound();
@@ -58,6 +58,7 @@ public class CategoryController : BaseApiController
     [HttpPut("{id:int}")]
     public async Task<IActionResult> UpdateCategory(int id, UpdateCategoryRequest request)
     {
+        request = request with { CategoryId = id };
         var response = await _categoryService.UpdateCategoryAsync(request);
         if (!response.Success)
         {
@@ -68,9 +69,9 @@ public class CategoryController : BaseApiController
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> DeleteCategory(int id, DeleteCategoryRequest request)
+    public async Task<IActionResult> DeleteCategory(int id)
     {
-        var response = await _categoryService.DeleteCategoryAsync(request);
+        var response = await _categoryService.DeleteCategoryAsync(new DeleteCategoryRequest(id));
         if (!response.Success)
         {
             return NotFound();

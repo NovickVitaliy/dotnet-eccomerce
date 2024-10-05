@@ -24,13 +24,15 @@ public class SupplierRepository : ISupplierRepository
         await using var cmd = connection.CreateCommand();
         BuildInsertCommand(supplier, cmd);
 
-        var id = (long?)await cmd.ExecuteScalarAsync();
-        return (int)id!;
+        var id = (int?)await cmd.ExecuteScalarAsync();
+        return id.Value;
     }
 
     private static void BuildInsertCommand(Supplier supplier, DbCommand cmd)
     {
-        cmd.CommandText = "EXECUTE sp_InsertSupplier @name = @name, @contactInfo = @contactInfo, @address = @address; SELECT CAST(SCOPE_IDENTITY() AS INT);";
+        cmd.CommandText = @"
+        INSERT INTO Supplier(Name, ContactInfo, Address) VALUES (@name, @contactInfo, @address); 
+        SELECT CAST(SCOPE_IDENTITY() AS INT);";
         cmd.Parameters.Add(new SqlParameter()
         {
             ParameterName = "@name",
@@ -116,7 +118,7 @@ public class SupplierRepository : ISupplierRepository
         });
 
         await using var reader = await cmd.ExecuteReaderAsync();
-        if (await reader.ReadAsync())
+        while (await reader.ReadAsync())
         {
             suppliers.Add(await ReadSupplier(reader));
         }

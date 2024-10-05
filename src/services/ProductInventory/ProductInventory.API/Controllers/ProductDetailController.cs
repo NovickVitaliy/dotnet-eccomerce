@@ -24,7 +24,7 @@ public class ProductDetailController : BaseApiController
             return BadRequest();
         }
 
-        return Created("/api/product-details/{id}", new { id = response.Data });
+        return Created($"/api/product-details/{response.Data}", new { id = response.Data });
     }
 
     [HttpGet]

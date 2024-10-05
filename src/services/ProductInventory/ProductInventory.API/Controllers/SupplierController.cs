@@ -24,7 +24,7 @@ public class SupplierController : BaseApiController
             return BadRequest();
         }
 
-        return Created("/api/suppliers/{id}", new {id = response.Data});
+        return Created($"/api/suppliers/{response.Data}", new {id = response.Data});
     }
 
     [HttpGet]

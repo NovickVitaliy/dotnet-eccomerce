@@ -51,6 +51,10 @@ public class ProductDetailService : IProductDetailService
         try
         {
             var productDetail = await _productDetailsRepository.GetProductDetailByIdAsync(request.Id);
+            if (productDetail is null)
+            {
+                return ErrorOr<ProductDetailDto>.NotFound();
+            }
             var productDetailDto = _mapper.Map<ProductDetailDto>(productDetail);
             return ErrorOr<ProductDetailDto>.Ok(productDetailDto);
         }
@@ -89,7 +93,7 @@ public class ProductDetailService : IProductDetailService
                 return ErrorOr<bool>.NotFound();
             }
             
-            return ErrorOr<bool>.InternalServerError();
+            return ErrorOr<bool>.Ok(success);
         }
         catch (Exception e)
         {
