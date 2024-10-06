@@ -2,7 +2,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using OrderManagement.Domain.Models;
 
-namespace OrderManagement.DataAccess.Persistance;
+namespace OrderManagement.DataAccess.Persistence;
 
 public class AppDbContext : DbContext
 {

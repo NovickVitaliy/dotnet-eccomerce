@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using OrderManagement.DataAccess.Persistance;
+using OrderManagement.DataAccess.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
