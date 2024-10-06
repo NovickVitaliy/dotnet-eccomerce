@@ -10,4 +10,5 @@ public class Order : BaseEntity
     public ICollection<OrderItem> OrderItems { get; set; }
     public Shipment Shipment { get; set; }
     public OrderHistory OrderHistory { get; set; }
+    public List<CustomerOrder> CustomerOrders { get; set; }
 }

@@ -40,5 +40,10 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .WithOne(x => x.Order)
             .HasForeignKey<OrderHistory>(x => x.OrderId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(x => x.CustomerOrders)
+            .WithOne(x => x.Order)
+            .HasForeignKey(x => x.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

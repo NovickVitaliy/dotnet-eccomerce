@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<OrderHistory> OrderHistories => Set<OrderHistory>();
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
     public DbSet<Shipment> Shipments => Set<Shipment>();
+    public DbSet<Customer> Customers => Set<Customer>();
     
     public AppDbContext(DbContextOptions options) : base(options)
     {
