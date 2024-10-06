@@ -7,55 +7,60 @@ namespace OrderManagement.DataAccess.Repositories.Implementations;
 
 public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
 {
-    private readonly AppDbContext _appDbContext;
+    protected readonly AppDbContext AppDbContext;
     
     protected GenericRepository(AppDbContext appDbContext)
     {
-        _appDbContext = appDbContext;
+        AppDbContext = appDbContext;
     }
     
     public async Task<int> CreateAsync(TEntity entity)
     {
-        await _appDbContext.Set<TEntity>().AddAsync(entity);
-        await _appDbContext.SaveChangesAsync();
+        await AppDbContext.Set<TEntity>().AddAsync(entity);
+        await AppDbContext.SaveChangesAsync();
         return entity.Id;
     }
     
-    public async Task<TEntity?> GetByIdAsync(int id)
+    public async Task<TEntity?> GetByIdAsync(int id, bool trackingEnabled = false)
     {
-        return await _appDbContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+        var query = AppDbContext.Set<TEntity>().Where(x => x.Id == id);
+        return trackingEnabled
+            ? await query.SingleOrDefaultAsync()
+            : await query.AsNoTracking().SingleOrDefaultAsync();
     }
     
-    public async Task<IReadOnlyCollection<TEntity>> GetAsync(int pageNumber, int pageSize)
+    public async Task<IReadOnlyCollection<TEntity>> GetAsync(int pageNumber, int pageSize, bool trackingEnabled = false)
     {
         var skip = (pageNumber - 1) * pageSize;
-
-        return await _appDbContext.Set<TEntity>().Skip(skip).Take(pageSize).ToListAsync();
+        var query = AppDbContext.Set<TEntity>().Skip(skip).Take(pageSize);
+        return trackingEnabled
+            ? await query.ToListAsync()
+            : await query.AsNoTracking().ToListAsync();
     }
     
     public async Task<bool> UpdateAsync(TEntity entity)
     {
-        _appDbContext.Set<TEntity>().Update(entity);
-        var rowsChanged = await _appDbContext.SaveChangesAsync();
+        AppDbContext.Set<TEntity>().Update(entity);
+        var rowsChanged = await AppDbContext.SaveChangesAsync();
         return rowsChanged == 1;
     }
     
     public async Task<bool> DeleteAsync(TEntity entity)
     {
-        _appDbContext.Set<TEntity>().Remove(entity);
-        var rowsChanged = await _appDbContext.SaveChangesAsync();
+        AppDbContext.Set<TEntity>().Remove(entity);
+        var rowsChanged = await AppDbContext.SaveChangesAsync();
         return rowsChanged == 1;
     }
     
     public async Task<bool> DeleteByIdAsync(int id)
     {
-        var entity = await _appDbContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
+        var entity = await AppDbContext.Set<TEntity>().SingleOrDefaultAsync(x => x.Id == id);
         if (entity is null)
         {
             return false;
         }
-        _appDbContext.Set<TEntity>().Remove(entity);
-        await _appDbContext.SaveChangesAsync();
+        AppDbContext.Set<TEntity>().Remove(entity);
+        await AppDbContext.SaveChangesAsync();
         return true;
     }
 }

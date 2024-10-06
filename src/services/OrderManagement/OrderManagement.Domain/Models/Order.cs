@@ -2,7 +2,7 @@ namespace OrderManagement.Domain.Models;
 
 public class Order : BaseEntity
 {
-    public int UserId { get; set; }
+    public int CustomerId { get; set; }
     public decimal TotalAmount { get; set; }
     public string OrderStatus { get; set; }
     public DateTime OrderDate { get; set; }

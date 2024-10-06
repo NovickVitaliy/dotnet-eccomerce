@@ -10,7 +10,7 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
         builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.UserId)
+        builder.Property(x => x.CustomerId)
             .IsRequired();
 
         builder.Property(x => x.TotalAmount)
