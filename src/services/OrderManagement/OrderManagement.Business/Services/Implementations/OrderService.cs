@@ -66,24 +66,24 @@ public class OrderService : IOrderService
             return ErrorOr<ShipmentDto>.InternalServerError();
         }
     }
-    public async Task<ErrorOr<bool>> ChangeStatusAsync(int orderId, string newStatus)
+    public async Task<ErrorOr<bool>> ChangeStatusAsync(ChangeOrderStatusRequest request)
     {
         var order = await _db.Orders
             .Include(x => x.OrderHistory)
-            .SingleOrDefaultAsync(x => x.Id == orderId);
+            .SingleOrDefaultAsync(x => x.Id == request.OrderId);
         
         if (order is null)
         {
             return ErrorOr<bool>.NotFound();
         }
 
-        if (!OrderStatus.Statuses.Any(x => x.ToLower().Equals(newStatus.ToLower())))
+        if (!OrderStatus.Statuses.Any(x => x.ToLower().Equals(request.NewStatus.ToLower())))
         {
             return ErrorOr<bool>.BadRequest("Invalid Status for order");
         }
 
-        order.OrderStatus = newStatus;
-        order.OrderHistory.NewStatus = newStatus;
+        order.OrderStatus = request.NewStatus;
+        order.OrderHistory.NewStatus = request.NewStatus;
         order.OrderHistory.StatusChangedDate = DateTime.Now;
 
         await _db.SaveChangesAsync();

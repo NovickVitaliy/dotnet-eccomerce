@@ -7,5 +7,5 @@ namespace OrderManagement.Business.Services.Contracts;
 public interface IOrderService
 {
     Task<ErrorOr<ShipmentDto>> CreateOrderAsync(CreateOrderRequest request);
-    Task<ErrorOr<bool>> ChangeStatusAsync(int orderId, string newStatus);
+    Task<ErrorOr<bool>> ChangeStatusAsync(ChangeOrderStatusRequest request);
 }
