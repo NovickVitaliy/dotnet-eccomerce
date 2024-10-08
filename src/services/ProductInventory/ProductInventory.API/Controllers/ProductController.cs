@@ -21,7 +21,7 @@ public class ProductController : BaseApiController
         var response = await _productService.CreateProductAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Created($"/api/products/{response.Data}", new {id = response.Data});
@@ -33,7 +33,7 @@ public class ProductController : BaseApiController
         var response = await _productService.GetProductsAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Ok(response.Data);
@@ -45,7 +45,7 @@ public class ProductController : BaseApiController
         var response = await _productService.GetProductByIdAsync(new GetProductByIdRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return Ok(response.Data);
@@ -58,7 +58,7 @@ public class ProductController : BaseApiController
         var response = await _productService.UpdateProductAsync(request);
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();
@@ -70,7 +70,7 @@ public class ProductController : BaseApiController
         var response = await _productService.DeleteProductAsync(new DeleteProductRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();

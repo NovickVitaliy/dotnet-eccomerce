@@ -21,7 +21,7 @@ public class ProductTagController : BaseApiController
         var response = await _productTagService.CreateProductTagAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Created($"/api/product-tags/{response.Data}", new {id = response.Data});
@@ -33,7 +33,7 @@ public class ProductTagController : BaseApiController
         var response = await _productTagService.GetProductTagsAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Ok(response.Data);
@@ -45,7 +45,7 @@ public class ProductTagController : BaseApiController
         var response = await _productTagService.GetProductTagByIdAsync(new GetProductTagByIdRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return Ok(response.Data);
@@ -58,7 +58,7 @@ public class ProductTagController : BaseApiController
         var response = await _productTagService.UpdateProductTagAsync(request);
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();
@@ -70,7 +70,7 @@ public class ProductTagController : BaseApiController
         var response = await _productTagService.DeleteProductTagAsync(new DeleteProductTagRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();

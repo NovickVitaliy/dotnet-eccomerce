@@ -21,7 +21,7 @@ public class SupplierController : BaseApiController
         var response = await _supplierService.CreateSupplierAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Created($"/api/suppliers/{response.Data}", new {id = response.Data});
@@ -33,7 +33,7 @@ public class SupplierController : BaseApiController
         var response = await _supplierService.GetSuppliersAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Ok(response.Data);
@@ -45,7 +45,7 @@ public class SupplierController : BaseApiController
         var response = await _supplierService.GetSupplierByIdAsync(new GetSupplierByIdRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return Ok(response.Data);
@@ -58,7 +58,7 @@ public class SupplierController : BaseApiController
         var response = await _supplierService.UpdateSupplierAsync(request);
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();
@@ -70,7 +70,7 @@ public class SupplierController : BaseApiController
         var response = await _supplierService.DeleteSupplierAsync(new DeleteSupplierRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();

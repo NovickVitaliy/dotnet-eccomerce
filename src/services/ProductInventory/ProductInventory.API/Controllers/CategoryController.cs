@@ -23,7 +23,7 @@ public class CategoryController : BaseApiController
         var result = await _categoryService.CreateCategoryAsync(request);
         if (!result.Success)
         {
-            return BadRequest();
+            return BadRequest(result.Description);
         }
         return Created($"/api/categories/{result.Data}", new
         {
@@ -37,7 +37,7 @@ public class CategoryController : BaseApiController
         var response = await _categoryService.GetCategoriesAsync(request);
         if (!response.Success)
         {
-            return BadRequest();
+            return BadRequest(response.Description);
         }
 
         return Ok(response.Data);
@@ -49,7 +49,7 @@ public class CategoryController : BaseApiController
         var response = await _categoryService.GetCategoryByIdAsync(new GetCategoryByIdRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return Ok(response.Data);
@@ -62,7 +62,7 @@ public class CategoryController : BaseApiController
         var response = await _categoryService.UpdateCategoryAsync(request);
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();
@@ -74,7 +74,7 @@ public class CategoryController : BaseApiController
         var response = await _categoryService.DeleteCategoryAsync(new DeleteCategoryRequest(id));
         if (!response.Success)
         {
-            return NotFound();
+            return NotFound(response.Description);
         }
 
         return NoContent();
