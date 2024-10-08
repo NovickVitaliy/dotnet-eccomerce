@@ -22,6 +22,8 @@ public class ShipmentConfiguration : IEntityTypeConfiguration<Shipment>
             .IsRequired();
 
         builder.Property(x => x.TrackingNumber)
-            .IsRequired();
+            .IsRequired()
+            .HasConversion(toDb => toDb.ToString(),
+                fromDb => Guid.Parse(fromDb));
     }
 }
