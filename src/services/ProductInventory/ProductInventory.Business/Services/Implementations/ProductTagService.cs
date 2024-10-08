@@ -1,5 +1,6 @@
 using AutoMapper;
 using Common.ErrorHandling;
+using FluentValidation;
 using ProductInventory.Business.DTOs.ProductTag;
 using ProductInventory.Business.Services.Conctracts;
 using ProductInventory.DataAccess.Repositories.Contracts;
@@ -11,15 +12,24 @@ public class ProductTagService : IProductTagService
 {
     private readonly IProductTagRepository _productTagRepository;
     private readonly IMapper _mapper;
-    
-    public ProductTagService(IProductTagRepository productTagRepository, IMapper mapper)
+    private readonly IValidator<CreateProductTagRequest> _createProductTagRequestValidator;
+    private readonly IValidator<UpdateProductTagRequest> _updateProductTagRequestValidator;
+    public ProductTagService(IProductTagRepository productTagRepository, IMapper mapper, IValidator<UpdateProductTagRequest> updateProductTagRequestValidator,
+        IValidator<CreateProductTagRequest> createProductTagRequestValidator)
     {
         _productTagRepository = productTagRepository;
         _mapper = mapper;
+        _updateProductTagRequestValidator = updateProductTagRequestValidator;
+        _createProductTagRequestValidator = createProductTagRequestValidator;
     }
-    
+
     public async Task<ErrorOr<int>> CreateProductTagAsync(CreateProductTagRequest request)
     {
+        var validationResult = await _createProductTagRequestValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return ErrorOr<int>.BadRequest(validationResult.Errors[0].ErrorMessage);
+        }
         try
         {
             var productTag = _mapper.Map<ProductTag>(request);
@@ -28,10 +38,10 @@ public class ProductTagService : IProductTagService
         }
         catch (Exception e)
         {
-            return ErrorOr<int>.InternalServerError(); 
-        }    
+            return ErrorOr<int>.InternalServerError();
+        }
     }
-    
+
     public async Task<ErrorOr<IReadOnlyList<ProductTagDto>>> GetProductTagsAsync(GetProductTagsRequest request)
     {
         try
@@ -45,7 +55,7 @@ public class ProductTagService : IProductTagService
             return ErrorOr<IReadOnlyList<ProductTagDto>>.InternalServerError();
         }
     }
-    
+
     public async Task<ErrorOr<ProductTagDto>> GetProductTagByIdAsync(GetProductTagByIdRequest request)
     {
         try
@@ -55,16 +65,16 @@ public class ProductTagService : IProductTagService
             {
                 return ErrorOr<ProductTagDto>.NotFound();
             }
-            
+
             return ErrorOr<ProductTagDto>.Ok(_mapper.Map<ProductTagDto>(result));
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw; 
+            throw;
         }
     }
-    
+
     public async Task<ErrorOr<bool>> DeleteProductTagAsync(DeleteProductTagRequest request)
     {
         try
@@ -74,7 +84,7 @@ public class ProductTagService : IProductTagService
             {
                 return ErrorOr<bool>.NotFound();
             }
-            
+
             return ErrorOr<bool>.Ok(result);
         }
         catch (Exception e)
@@ -82,9 +92,14 @@ public class ProductTagService : IProductTagService
             return ErrorOr<bool>.InternalServerError();
         }
     }
-    
+
     public async Task<ErrorOr<bool>> UpdateProductTagAsync(UpdateProductTagRequest request)
     {
+        var validationResult = await _updateProductTagRequestValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return ErrorOr<bool>.BadRequest(validationResult.Errors[0].ErrorMessage);
+        }
         try
         {
             var productTag = _mapper.Map<ProductTag>(request);
@@ -97,7 +112,7 @@ public class ProductTagService : IProductTagService
         }
         catch (Exception e)
         {
-            return ErrorOr<bool>.InternalServerError(); 
+            return ErrorOr<bool>.InternalServerError();
         }
     }
 }

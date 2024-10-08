@@ -1,5 +1,6 @@
 using AutoMapper;
 using Common.ErrorHandling;
+using FluentValidation;
 using ProductInventory.Business.DTOs.Product;
 using ProductInventory.Business.Services.Conctracts;
 using ProductInventory.DataAccess.Repositories.Contracts;
@@ -11,15 +12,23 @@ public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
-    
-    public ProductService(IProductRepository productRepository, IMapper mapper)
+    private readonly IValidator<CreateProductRequest> _createProductRequestValidator;
+    private readonly IValidator<UpdateProductRequest> _updateProductRequestValidator;
+    public ProductService(IProductRepository productRepository, IMapper mapper, IValidator<CreateProductRequest> createProductRequestValidator, IValidator<UpdateProductRequest> updateProductRequestValidator)
     {
         _productRepository = productRepository;
         _mapper = mapper;
+        _createProductRequestValidator = createProductRequestValidator;
+        _updateProductRequestValidator = updateProductRequestValidator;
     }
     
     public async Task<ErrorOr<int>> CreateProductAsync(CreateProductRequest request)
     {
+        var validationResult = await _createProductRequestValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return ErrorOr<int>.BadRequest(validationResult.Errors[0].ErrorMessage);
+        }
         try
         {
             var product = _mapper.Map<Product>(request);
@@ -84,6 +93,12 @@ public class ProductService : IProductService
     
     public async Task<ErrorOr<bool>> UpdateProductAsync(UpdateProductRequest request)
     {
+        
+        var validationResult = await _updateProductRequestValidator.ValidateAsync(request);
+        if (!validationResult.IsValid)
+        {
+            return ErrorOr<bool>.BadRequest(validationResult.Errors[0].ErrorMessage);
+        }
         try
         {
             var product = _mapper.Map<Product>(request);
