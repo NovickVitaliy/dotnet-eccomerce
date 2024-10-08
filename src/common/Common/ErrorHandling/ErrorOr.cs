@@ -32,4 +32,6 @@ public class ErrorOr<TData>
     {
         return new ErrorOr<TData>(false, description, default(TData));
     }
+
+    public static implicit operator ErrorOr<TData>(TData data) => new ErrorOr<TData>(true, string.Empty, data);
 }

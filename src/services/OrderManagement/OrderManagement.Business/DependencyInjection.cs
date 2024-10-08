@@ -9,7 +9,7 @@ public static class DependencyInjection
     public static IServiceCollection ConfigureBusinessLayer(this IServiceCollection services)
     {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
         return services;
     }
 }
