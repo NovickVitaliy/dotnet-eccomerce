@@ -13,9 +13,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
         builder.Property(x => x.CustomerId)
             .IsRequired();
 
-        builder.Property(x => x.TotalAmount)
-            .IsRequired();
-
         builder.Property(x => x.OrderStatus)
             .IsRequired();
 

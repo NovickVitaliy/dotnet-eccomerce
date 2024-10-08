@@ -1,9 +1,13 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace OrderManagement.Domain.Models;
 
 public class Order : BaseEntity
 {
     public int CustomerId { get; set; }
-    public decimal TotalAmount { get; set; }
+
+    [NotMapped]
+    public decimal TotalAmount => OrderItems.Sum(x => x.Price * x.Quantity);
     public string OrderStatus { get; set; }
     public DateTime OrderDate { get; set; }
     public string ShippingAddress { get; set; }
