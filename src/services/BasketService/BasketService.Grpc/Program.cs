@@ -3,10 +3,14 @@ using BasketService.Infrastructure;
 using BasketService.Infrastructure.DbSetup;
 using BasketService.Infrastructure.Persistence;
 using BasketService.Services;
+using Microsoft.AspNetCore.Mvc;
+
+[assembly: ApiController]
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureApplicationLayer()
     .ConfigureInfrastructureLayer();
+builder.Services.AddControllers();
 
 builder.Services.AddSingleton<MongoDbContext>(_ =>
 {
@@ -27,5 +31,6 @@ if (app.Environment.IsDevelopment())
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 
+app.MapControllers();
 
 app.Run();
