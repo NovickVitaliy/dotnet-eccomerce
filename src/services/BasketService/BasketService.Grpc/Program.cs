@@ -1,8 +1,12 @@
+using BasketService.Application;
+using BasketService.Infrastructure;
 using BasketService.Infrastructure.DbSetup;
 using BasketService.Infrastructure.Persistence;
 using BasketService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.ConfigureApplicationLayer()
+    .ConfigureInfrastructureLayer();
 
 builder.Services.AddSingleton<MongoDbContext>(_ =>
 {
