@@ -12,14 +12,3 @@ public class Basket
     public List<BasketItem> BasketItems { get; set; }
     public decimal Price { get; set; }
 }
-
-public class BasketItem
-{
-    [BsonId]
-    public ObjectId Id { get; set; }
-    
-    public int Quantity { get; set; }
-    public int PricePerUnit { get; set; }
-    public int ProductId { get; set; }
-    public string ProductName { get; set; }
-}

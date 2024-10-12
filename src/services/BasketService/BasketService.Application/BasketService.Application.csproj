@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\common\Common\Common.csproj" />
       <ProjectReference Include="..\BasketService.Domain\BasketService.Domain.csproj" />
     </ItemGroup>
 
