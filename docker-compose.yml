@@ -23,6 +23,19 @@
     volumes:
       - order.management.db.volume:/var/opt/mssql
   
+  community.db:
+    image: postgres
+    container_name: community.db
+    environment:
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+    - POSTGRES_DB=CommunityDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - community.db.volume:/var/lib/postgresql/data/
+  
   basket.service.db:
     image: mongo
     container_name: basket.service.db
@@ -48,3 +61,4 @@ volumes:
   product.inventory.db.volume:
   order.management.db.volume:
   basket.service.db.volume:
+  community.db.volume:

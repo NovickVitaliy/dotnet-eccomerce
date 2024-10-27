@@ -58,6 +58,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Domain", "src\s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.CQRS", "src\common\Common.CQRS\Common.CQRS.csproj", "{CDB04CC7-030E-42DE-94D2-DD717F5459A8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommunityService", "CommunityService", "{9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityService.Domain", "src\services\CommunityService\CommunityService.Domain\CommunityService.Domain.csproj", "{697C7F98-AC60-4705-AA61-FC0A318B5DBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityService.Application", "src\services\CommunityService\CommunityService.Application\CommunityService.Application.csproj", "{86B503C9-C161-418A-A677-0B93CAA1AF1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityService.Infrastructure", "src\services\CommunityService\CommunityService.Infrastructure\CommunityService.Infrastructure.csproj", "{3A122054-A9C8-46DE-A28D-ADE248A66C36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommunityService.API", "src\services\CommunityService\CommunityService.API\CommunityService.API.csproj", "{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +101,11 @@ Global
 		{A867889D-CF0C-4A79-A83A-72DC8835FD21} = {18F3BE67-62D4-4A72-B8C3-D6528BEC29BB}
 		{5B48DBDD-C02C-4491-B30D-44E198FD7E7F} = {18F3BE67-62D4-4A72-B8C3-D6528BEC29BB}
 		{CDB04CC7-030E-42DE-94D2-DD717F5459A8} = {9916CD20-267F-432C-8526-131A4FD8DE41}
+		{9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9} = {F4524B79-6009-4F37-94E7-0308FEE020EB}
+		{697C7F98-AC60-4705-AA61-FC0A318B5DBA} = {9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9}
+		{86B503C9-C161-418A-A677-0B93CAA1AF1C} = {9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9}
+		{3A122054-A9C8-46DE-A28D-ADE248A66C36} = {9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9}
+		{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2} = {9BAF5FD7-C2C8-4D4D-A07D-A6DB06AF40F9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D9E4B02D-A151-4E58-A555-2F3727011D44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -165,5 +180,21 @@ Global
 		{CDB04CC7-030E-42DE-94D2-DD717F5459A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDB04CC7-030E-42DE-94D2-DD717F5459A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDB04CC7-030E-42DE-94D2-DD717F5459A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697C7F98-AC60-4705-AA61-FC0A318B5DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697C7F98-AC60-4705-AA61-FC0A318B5DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697C7F98-AC60-4705-AA61-FC0A318B5DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697C7F98-AC60-4705-AA61-FC0A318B5DBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86B503C9-C161-418A-A677-0B93CAA1AF1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86B503C9-C161-418A-A677-0B93CAA1AF1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86B503C9-C161-418A-A677-0B93CAA1AF1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86B503C9-C161-418A-A677-0B93CAA1AF1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A122054-A9C8-46DE-A28D-ADE248A66C36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A122054-A9C8-46DE-A28D-ADE248A66C36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A122054-A9C8-46DE-A28D-ADE248A66C36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A122054-A9C8-46DE-A28D-ADE248A66C36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F91F909D-CE3F-4AAB-8FDB-D83FAE027CC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
