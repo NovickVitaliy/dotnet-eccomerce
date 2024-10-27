@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagement.Domain", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BasketService", "BasketService", "{9EE7DC79-6A7B-4C71-B94F-1CB272953BDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Grpc", "src\services\BasketService\BasketService.Grpc\BasketService.Grpc.csproj", "{B511EB38-77A5-437B-90FF-06F726596899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.API", "src\services\BasketService\BasketService.API\BasketService.API.csproj", "{B511EB38-77A5-437B-90FF-06F726596899}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketService.Domain", "src\services\BasketService\BasketService.Domain\BasketService.Domain.csproj", "{9252F94C-28D4-4B54-B052-17B57B70B5EB}"
 EndProject
