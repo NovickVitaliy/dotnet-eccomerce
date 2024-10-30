@@ -1,9 +1,8 @@
 using Dapper;
 using ProductInventory.DataAccess.Persistance;
 using ProductInventory.DataAccess.Repositories.Contracts;
-using ProductInventory.Domain.Models;
 
-namespace ProductInventory.DataAccess.Repositories.Implementations;
+namespace ProductInventory.DataAccess.Repositories.Implementations.ProductTag;
 
 public class ProductTagRepository : IProductTagRepository
 {
@@ -14,7 +13,7 @@ public class ProductTagRepository : IProductTagRepository
         _dbConnectionAccessor = dbConnectionAccessor;
     }
 
-    public async Task<int> CreateProductTagAsync(ProductTag productTag)
+    public async Task<int> CreateProductTagAsync(Domain.Models.ProductTag productTag)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var id = await connection.QuerySingleAsync<int>(
@@ -25,23 +24,23 @@ public class ProductTagRepository : IProductTagRepository
         return id;
     }
 
-    public async Task<ProductTag?> GetProductTagByIdAsync(int productTagId)
+    public async Task<Domain.Models.ProductTag?> GetProductTagByIdAsync(int productTagId)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
-        var productTag = await connection.QuerySingleOrDefaultAsync<ProductTag>(
+        var productTag = await connection.QuerySingleOrDefaultAsync<Domain.Models.ProductTag>(
             "SELECT * FROM ProductTag WHERE ProductTagId = @productTagId",
             new { productTagId });
 
         return productTag;
     }
 
-    public async Task<List<ProductTag>> GetProductTagsAsync(int pageNumber, int pageSize)
+    public async Task<List<Domain.Models.ProductTag>> GetProductTagsAsync(int pageNumber, int pageSize)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         int skip = (pageNumber - 1) * pageSize;
         int take = pageSize;
 
-        var productTags = (await connection.QueryAsync<ProductTag>(
+        var productTags = (await connection.QueryAsync<Domain.Models.ProductTag>(
             "SELECT * FROM ProductTag " +
             "ORDER BY ProductTagId " +
             "OFFSET @skip ROWS FETCH NEXT @take ROWS ONLY",
@@ -63,7 +62,7 @@ public class ProductTagRepository : IProductTagRepository
         return rowsAffected == 1;
     }
 
-    public async Task<bool> UpdateProductTagAsync(ProductTag productTag)
+    public async Task<bool> UpdateProductTagAsync(Domain.Models.ProductTag productTag)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var rowsAffected = await connection.ExecuteAsync(

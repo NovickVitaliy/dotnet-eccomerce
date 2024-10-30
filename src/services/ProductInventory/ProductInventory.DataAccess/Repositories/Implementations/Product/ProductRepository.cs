@@ -1,11 +1,10 @@
 using System.Data.Common;
 using Dapper;
-using Microsoft.Data.SqlClient;
 using ProductInventory.DataAccess.Persistance;
 using ProductInventory.DataAccess.Repositories.Contracts;
 using ProductInventory.Domain.Models;
 
-namespace ProductInventory.DataAccess.Repositories.Implementations;
+namespace ProductInventory.DataAccess.Repositories.Implementations.Product;
 
 public class ProductRepository : IProductRepository
 {
@@ -16,7 +15,7 @@ public class ProductRepository : IProductRepository
         _dbConnectionAccessor = dbConnectionAccessor;
     }
 
-    public async Task<int> CreateProductAsync(Product product)
+    public async Task<int> CreateProductAsync(Domain.Models.Product product)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var id = await connection.QuerySingleAsync<int>(
@@ -36,7 +35,7 @@ public class ProductRepository : IProductRepository
         return id;
     }
 
-    public async Task<Product?> GetProductByIdAsync(int productId)
+    public async Task<Domain.Models.Product?> GetProductByIdAsync(int productId)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var product = await ReadProductAsync(connection, productId);
@@ -50,9 +49,9 @@ public class ProductRepository : IProductRepository
         await AppendProductTagsToProduct(product, connection);
         return product;
     }
-    private async Task AppendProductTagsToProduct(Product product, DbConnection connection)
+    private async Task AppendProductTagsToProduct(Domain.Models.Product product, DbConnection connection)
     {
-        var productTags = await connection.QueryAsync<ProductTag>(
+        var productTags = await connection.QueryAsync<Domain.Models.ProductTag>(
             "SELECT pt.ProductTagId, pt.Name" +
             " FROM ProductTagMapping ptm " +
             "INNER JOIN ProductTag pt ON ptm.productTagId = pt.ProductTagId " +
@@ -63,35 +62,35 @@ public class ProductRepository : IProductRepository
         product.ProductTags = productTags.ToList();
     }
 
-    private async Task AppendProductDetailToProduct(Product product, DbConnection connection)
+    private async Task AppendProductDetailToProduct(Domain.Models.Product product, DbConnection connection)
     {
         var productDetail = await connection.QuerySingleOrDefaultAsync<ProductDetail>(
             "SELECT * FROM ProductDetail WHERE ProductDetailId = @productDetailid",
             new { productDetailId = product.ProductId });
         product.ProductDetail = productDetail;
     }
-    private async Task AppendSupplierToProduct(Product product, DbConnection connection)
+    private async Task AppendSupplierToProduct(Domain.Models.Product product, DbConnection connection)
     {
-        var supplier = await connection.QuerySingleOrDefaultAsync<Supplier>(
+        var supplier = await connection.QuerySingleOrDefaultAsync<Domain.Models.Supplier>(
             "SELECT * FROM Supplier WHERE SupplierId = @supplierId",
             new { supplierId = product.SupplierId });
         product.Supplier = supplier;
     }
-    private async Task AppendCategoryToProduct(Product product, DbConnection connection)
+    private async Task AppendCategoryToProduct(Domain.Models.Product product, DbConnection connection)
     {
-        var category = await connection.QuerySingleOrDefaultAsync<Category>(
+        var category = await connection.QuerySingleOrDefaultAsync<Domain.Models.Category>(
             "SELECT * FROM Category WHERE CategoryId = @categoryId",
             new { categoryId = product.CategoryId });
         product.Category = category;
     }
-    private async Task<Product?> ReadProductAsync(DbConnection connection, int productId)
+    private async Task<Domain.Models.Product?> ReadProductAsync(DbConnection connection, int productId)
     {
-        return await connection.QuerySingleOrDefaultAsync<Product>(
+        return await connection.QuerySingleOrDefaultAsync<Domain.Models.Product>(
             "SELECT * FROM Product WHERE ProductId = @productId",
             new { productId });
     }
 
-    public async Task<List<Product>> GetProductsAsync(int pageNumber, int pageSize)
+    public async Task<List<Domain.Models.Product>> GetProductsAsync(int pageNumber, int pageSize)
     {
         string sql = @"
         SELECT 
@@ -110,11 +109,11 @@ public class ProductRepository : IProductRepository
         OFFSET @offset ROWS FETCH NEXT @pageSize ROWS ONLY;";
 
         await using var connection = _dbConnectionAccessor.GetConnection();
-        var productDictionary = new Dictionary<int, Product>();
+        var productDictionary = new Dictionary<int, Domain.Models.Product>();
 
         int offset = (pageNumber - 1) * pageSize; 
 
-        var result = await connection.QueryAsync<Product, Category, Supplier, ProductDetail, ProductTag, Product>(
+        var result = await connection.QueryAsync<Domain.Models.Product, Domain.Models.Category, Domain.Models.Supplier, ProductDetail, Domain.Models.ProductTag, Domain.Models.Product>(
             sql,
             (product, category, supplier, productDetail, productTag) =>
             {
@@ -124,7 +123,7 @@ public class ProductRepository : IProductRepository
                     productEntry.Category = category;
                     productEntry.Supplier = supplier;
                     productEntry.ProductDetail = productDetail;
-                    productEntry.ProductTags = new List<ProductTag>();
+                    productEntry.ProductTags = new List<Domain.Models.ProductTag>();
                     productDictionary.Add(product.ProductId, productEntry);
                 }
 
@@ -155,7 +154,7 @@ public class ProductRepository : IProductRepository
         return rowsAffected == 1;
     }
 
-    public async Task<bool> UpdateProductAsync(Product product)
+    public async Task<bool> UpdateProductAsync(Domain.Models.Product product)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         var rowsAffected = await connection.ExecuteAsync(

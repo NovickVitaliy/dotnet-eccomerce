@@ -3,7 +3,7 @@ using ProductInventory.DataAccess.Persistance;
 using ProductInventory.DataAccess.Repositories.Contracts;
 using ProductInventory.Domain.Models;
 
-namespace ProductInventory.DataAccess.Repositories.Implementations;
+namespace ProductInventory.DataAccess.Repositories.Implementations.ProductDetails;
 
 public class ProductDetailsRepository : IProductDetailsRepository
 {

@@ -56,6 +56,13 @@
     environment:
       - ME_CONFIG_MONGODB_URL=mongodb://basket.service.db:27017/
       - ME_CONFIG_BASICAUTH=false
+        
+  community.cache:
+    image: redis
+    container_name: community.cache
+    restart: always
+    ports:
+      - "6379:6379"
 
 volumes:
   product.inventory.db.volume:

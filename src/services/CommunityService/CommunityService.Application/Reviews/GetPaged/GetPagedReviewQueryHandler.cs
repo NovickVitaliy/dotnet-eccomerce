@@ -1,9 +1,11 @@
+using System.Text.Json;
 using AutoMapper;
 using Common.CQRS.Query;
 using Common.ErrorHandling;
 using CommunityService.Application.Data;
 using CommunityService.Application.DTOs.Review;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace CommunityService.Application.Reviews.GetPaged;
 
@@ -11,15 +13,23 @@ public class GetPagedReviewQueryHandler : IQueryHandler<GetPagedReviewQuery, Err
 {
     private readonly IAppDbContext _db;
     private readonly IMapper _mapper;
-    
-    public GetPagedReviewQueryHandler(IAppDbContext db, IMapper mapper)
+    private readonly IDistributedCache _cache;
+    public GetPagedReviewQueryHandler(IAppDbContext db, IMapper mapper, IDistributedCache cache)
     {
         _db = db;
         _mapper = mapper;
+        _cache = cache;
     }
     
     public async Task<ErrorOr<IReadOnlyCollection<ReviewDto>>> Handle(GetPagedReviewQuery request, CancellationToken cancellationToken)
     {
+        var key = $"reviews-pageNumber:{request.PageNumber}:pageSize:{request.PageSize}";
+        var cached = await _cache.GetStringAsync(key, cancellationToken);
+        if (!string.IsNullOrEmpty(cached))
+        {
+            return JsonSerializer.Deserialize<List<ReviewDto>>(cached)!.AsReadOnly();
+        }
+        
         var skip = (request.PageNumber - 1) * request.PageSize;
         var take = request.PageSize;
 
@@ -28,6 +38,11 @@ public class GetPagedReviewQueryHandler : IQueryHandler<GetPagedReviewQuery, Err
             .Take(take)
             .ToListAsync(cancellationToken: cancellationToken);
 
-        return reviews.Select(r => _mapper.Map<ReviewDto>(r)).ToList();
+        var dtos = reviews.Select(r => _mapper.Map<ReviewDto>(r)).ToList().AsReadOnly();
+        await _cache.SetStringAsync(key, JsonSerializer.Serialize(dtos), new DistributedCacheEntryOptions()
+        {
+            SlidingExpiration = TimeSpan.FromMinutes(10)
+        }, cancellationToken);
+        return dtos;
     }
 }

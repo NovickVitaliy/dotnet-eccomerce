@@ -4,9 +4,8 @@ using Microsoft.Data.SqlClient;
 using ProductInventory.DataAccess.Persistance;
 using ProductInventory.DataAccess.Repositories.Contracts;
 using ProductInventory.Domain.Exceptions;
-using ProductInventory.Domain.Models;
 
-namespace ProductInventory.DataAccess.Repositories.Implementations;
+namespace ProductInventory.DataAccess.Repositories.Implementations.Supplier;
 
 public class SupplierRepository : ISupplierRepository
 {
@@ -17,7 +16,7 @@ public class SupplierRepository : ISupplierRepository
         _dbConnectionAccessor = dbConnectionAccessor;
     }
 
-    public async Task<int> CreateSupplierAsync(Supplier supplier)
+    public async Task<int> CreateSupplierAsync(Domain.Models.Supplier supplier)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         await connection.OpenAsync();
@@ -28,7 +27,7 @@ public class SupplierRepository : ISupplierRepository
         return id.Value;
     }
 
-    private static void BuildInsertCommand(Supplier supplier, DbCommand cmd)
+    private static void BuildInsertCommand(Domain.Models.Supplier supplier, DbCommand cmd)
     {
         cmd.CommandText = @"
         INSERT INTO Supplier(Name, ContactInfo, Address) VALUES (@name, @contactInfo, @address); 
@@ -58,7 +57,7 @@ public class SupplierRepository : ISupplierRepository
         });
     }
 
-    public async Task<Supplier?> GetSupplierByIdAsync(int supplierId)
+    public async Task<Domain.Models.Supplier?> GetSupplierByIdAsync(int supplierId)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         await connection.OpenAsync();
@@ -77,14 +76,14 @@ public class SupplierRepository : ISupplierRepository
 
         throw new SupplierNotFoundException();
     }
-    private ValueTask<Supplier> ReadSupplier(SqlDataReader reader)
+    private ValueTask<Domain.Models.Supplier> ReadSupplier(SqlDataReader reader)
     {
         var address = reader.GetString("Address");
         var name = reader.GetString("Name");
         var contactInfo = reader.GetString("ContactInfo");
         var supplierId = reader.GetInt32("SupplierId");
 
-        return ValueTask.FromResult(new Supplier()
+        return ValueTask.FromResult(new Domain.Models.Supplier()
         {
             Address = address,
             Name = name,
@@ -93,9 +92,9 @@ public class SupplierRepository : ISupplierRepository
         });
     }
 
-    public async Task<List<Supplier>> GetSuppliersAsync(int pageNumber, int pageSize)
+    public async Task<List<Domain.Models.Supplier>> GetSuppliersAsync(int pageNumber, int pageSize)
     {
-        List<Supplier> suppliers = [];
+        List<Domain.Models.Supplier> suppliers = [];
         await using var connection = _dbConnectionAccessor.GetConnection();
         await connection.OpenAsync();
         await using var cmd = new SqlCommand(
@@ -142,7 +141,7 @@ public class SupplierRepository : ISupplierRepository
         return rowsAffected == 1;
     }
 
-    public async Task<bool> UpdateSupplierAsync(Supplier supplier)
+    public async Task<bool> UpdateSupplierAsync(Domain.Models.Supplier supplier)
     {
         await using var connection = _dbConnectionAccessor.GetConnection();
         await connection.OpenAsync();
