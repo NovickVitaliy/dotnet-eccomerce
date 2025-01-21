@@ -41,7 +41,7 @@ public class GetPagedReviewQueryHandler : IQueryHandler<GetPagedReviewQuery, Err
         var dtos = reviews.Select(r => _mapper.Map<ReviewDto>(r)).ToList().AsReadOnly();
         await _cache.SetStringAsync(key, JsonSerializer.Serialize(dtos), new DistributedCacheEntryOptions()
         {
-            SlidingExpiration = TimeSpan.FromMinutes(10)
+            AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15)
         }, cancellationToken);
         return dtos;
     }

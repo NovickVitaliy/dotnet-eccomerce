@@ -15,7 +15,10 @@ public static class DependencyInjection
 {
     public static IServiceCollection ConfigureDataAccess(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMemoryCache();
+        services.AddMemoryCache(options =>
+        {
+            options.SizeLimit = long.MaxValue;
+        });
         services.AddScoped<DbConnectionAccessor>(_ => new DbConnectionAccessor(configuration.GetConnectionString(DbConnectionAccessor.ConnectionStringPosition)
                                                                                ?? throw new ArgumentNullException(nameof(DbConnectionAccessor.ConnectionStringPosition))));
         services.AddScoped<ICategoryRepository, CategoryRepository>();
