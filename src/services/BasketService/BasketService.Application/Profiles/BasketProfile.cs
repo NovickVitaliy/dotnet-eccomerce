@@ -9,7 +9,9 @@ public class BasketProfile : Profile
     public BasketProfile()
     {
         CreateMap<CreateBasketRequest, Basket>();
-        CreateMap<CreateBasketItemRequest, CreateBasketItemRequest>();
+        CreateMap<UpdateBasketRequest, Basket>()
+            .ForMember(x => x.Id, y => y.Ignore());
+        CreateMap<CreateBasketItemRequest, BasketItem>();
         CreateMap<Basket, BasketDto>();
         CreateMap<BasketItem, BasketItemDto>();
     }

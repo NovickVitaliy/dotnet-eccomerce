@@ -35,9 +35,15 @@ public class BasketService : IBasketService
     public async Task<ErrorOr<bool>> UpdateBasketAsync(UpdateBasketRequest request)
     {
         var collection = GetBasketCollection();
-        
-        var basket = _mapper.Map<Basket>(request);
 
+        var basket = (await (await collection.FindAsync(x => x.UserId == request.UserId)).ToListAsync()).FirstOrDefault();
+        if (basket is null)
+        {
+            return ErrorOr<bool>.NotFound();
+        }
+
+        basket.Price = request.Price;
+        basket.BasketItems = request.BasketItems.Select(x => _mapper.Map<BasketItem>(x)).ToList();
         var result = await collection.ReplaceOneAsync(Builders<Basket>.Filter.Eq(x => x.UserId, request.UserId), basket);
 
         return result.ModifiedCount == 1;

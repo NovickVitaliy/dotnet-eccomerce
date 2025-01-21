@@ -63,7 +63,7 @@
     restart: always
     ports:
       - "6379:6379"
-
+  
 volumes:
   product.inventory.db.volume:
   order.management.db.volume:
