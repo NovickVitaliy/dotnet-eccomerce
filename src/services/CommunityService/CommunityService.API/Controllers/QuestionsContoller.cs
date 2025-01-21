@@ -19,7 +19,7 @@ public class QuestionsContoller : BaseApiController
         _sender = sender;
     }
 
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> Create(CreateQuestionRequest request)
     {
         var cmd = new CreateQuestionCommand(request);

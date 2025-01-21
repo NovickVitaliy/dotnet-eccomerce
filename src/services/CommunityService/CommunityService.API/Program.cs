@@ -1,3 +1,4 @@
+using CommunityService.API;
 using CommunityService.Application;
 using CommunityService.Infrastructure;
 
@@ -10,6 +11,12 @@ builder.Services
     .ConfigureInfrastructure(builder.Configuration);
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    await app.MigrateDatabaseAsync();
+}
+
 app.UseRouting();
 app.UseHttpsRedirection();
 

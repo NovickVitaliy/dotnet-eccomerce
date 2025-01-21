@@ -8,4 +8,5 @@ public interface IOrderService
 {
     Task<ErrorOr<ShipmentDto>> CreateOrderAsync(CreateOrderRequest request);
     Task<ErrorOr<bool>> ChangeStatusAsync(ChangeOrderStatusRequest request);
+    Task<ErrorOr<OrderDto>> GetById(int id);
 }

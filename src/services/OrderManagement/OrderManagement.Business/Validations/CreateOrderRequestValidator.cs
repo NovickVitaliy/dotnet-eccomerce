@@ -11,7 +11,7 @@ public class CreateOrderRequestValidator : BaseValidator<CreateOrderRequest>
             .NotEmpty().WithMessage(PropertyRequired)
             .GreaterThan(0).WithMessage(GreaterThanGivenValue);
 
-        RuleFor(x => x.ShippingAddres)
+        RuleFor(x => x.ShippingAddress)
             .NotEmpty().WithMessage(PropertyRequired);
 
         RuleFor(x => x.OrderItems)

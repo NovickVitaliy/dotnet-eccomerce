@@ -4,5 +4,5 @@ namespace OrderManagement.Business.DTOs.Order;
 
 public record CreateOrderRequest(
     int CustomerId,
-    string ShippingAddres,
+    string ShippingAddress,
     IReadOnlyCollection<OrderItemDto> OrderItems);

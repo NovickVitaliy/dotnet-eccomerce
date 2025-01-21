@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "c3eaef6c-69b4-43ef-a444-2cdcf0b3d784",
+		"name": "Basket Service API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28558318"
+	},
+	"item": [
+		{
+			"name": "Create Basket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{basket-service-url}}/api/baskets",
+					"host": [
+						"{{basket-service-url}}"
+					],
+					"path": [
+						"api",
+						"baskets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 123,\r\n    \"price\": 1200,\r\n    \"basketItems\": [\r\n        \r\n        {\r\n            \"quantity\": 5,\r\n            \"pricePerUnit\": 100,\r\n            \"productId\": 5,\r\n            \"productName\": \"Some\"\r\n        },\r\n        {\r\n            \"quantity\": 5,\r\n            \"pricePerUnit\": 100,\r\n            \"productId\": 2,\r\n            \"productName\": \"Some\"\r\n        },\r\n        {\r\n            \"quantity\": 5,\r\n            \"pricePerUnit\": 100,\r\n            \"productId\": 1,\r\n            \"productName\": \"Some\"\r\n        },\r\n        {\r\n            \"quantity\": 5,\r\n            \"pricePerUnit\": 100,\r\n            \"productId\": 10,\r\n            \"productName\": \"Some\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{basket-service-url}}/api/baskets/123",
+					"host": [
+						"{{basket-service-url}}"
+					],
+					"path": [
+						"api",
+						"baskets",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get by user id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

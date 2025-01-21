@@ -25,7 +25,7 @@ public class OrderController : BaseApiController
             return BadRequest();
         }
 
-        return Created($"/api/orders/{result.Data}", new {id = result.Data});
+        return Created($"/api/orders/{result.Data}", result.Data);
     }
     
     //TODO: in future for admins
@@ -40,5 +40,17 @@ public class OrderController : BaseApiController
         }
 
         return NoContent();
+    }
+
+    [HttpGet("{orderId:int}")]
+    public async Task<IActionResult> GetById(int orderId)
+    {
+        var result = await _orderService.GetById(orderId);
+        if (!result.Success)
+        {
+            return NotFound();
+        }
+
+        return Ok(result.Data);
     }
 }
