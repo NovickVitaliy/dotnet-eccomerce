@@ -23,7 +23,7 @@ public class BasketController : ControllerBase
             return BadRequest(result.Description);
         }
 
-        return Created($"/api/baskets/{result.Data}", new {userId=result.Data});
+        return Created($"/api/baskets/{result.Data}", new {basketId=result.Data});
     }
 
     [HttpPut("{userId}")]

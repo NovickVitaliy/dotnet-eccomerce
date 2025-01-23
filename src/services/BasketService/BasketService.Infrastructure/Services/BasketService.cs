@@ -29,7 +29,7 @@ public class BasketService : IBasketService
         
         await collection.InsertOneAsync(basket);
 
-        return basket.UserId.ToString();
+        return basket.Id.ToString();
     }
     
     public async Task<ErrorOr<bool>> UpdateBasketAsync(UpdateBasketRequest request)
